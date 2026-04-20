@@ -1,0 +1,641 @@
+/*
+    style.css — MY_ENCRYP/DECRYP_APP
+    i wrote all the css here for my encryption app
+    using beige/brown theme because it looks cool
+*/
+
+
+/* ===== RESET & BASE ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif;
+}
+
+/* ===== COLOR VARIABLES (i put all colors here so easy to change) ===== */
+:root {
+    --bg:         #c4a882;
+    --surface:    #f0e6d3;
+    --card:       #f7f0e6;
+    --card2:      #ede0cc;
+    --border:     #b8976a;
+    --border2:    #a07850;
+    --text:       #1a0f00;
+    --text2:      #4a3520;
+    --text3:      #7a6040;
+    --accent:     #7a4f2a;
+    --accent2:    #5c3510;
+    --gold:       #c8973a;
+    --success:    #3d6b35;
+    --successbg:  #e8f3e6;
+    --danger:     #8b2020;
+    --dangerbg:   #f5e6e6;
+    --info:       #1a4a7a;
+    --infobg:     #e6eef7;
+    --warn:       #7a5a10;
+    --warnbg:     #f7f0d8;
+    --radius:     10px;
+    --radius-lg:  16px;
+    --radius-xl:  22px;
+}
+
+
+/* ===== MAIN WRAPPER ===== */
+.wrap {
+    background: #c4a882;
+    padding: 20px;
+    border-radius: 20px;
+    border: 2px solid #b8976a;
+}
+
+
+/* ===== HERO SECTION ===== */
+.hero {
+    background: #f7f0e6;
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--border);
+    padding: 28px 20px 22px;
+    text-align: center;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* gold line at top of hero */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #c8973a, #a07850, #c8973a);
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 11px;
+    color: var(--text2);
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
+}
+
+.hero p {
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+}
+
+/* small tag pills below the heading */
+.hero-tags {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+}
+
+.htag {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 11px;
+    color: var(--text2);
+    font-weight: 500;
+}
+
+
+/* ===== TAB NAVIGATION ===== */
+.tabs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    background: var(--card2);
+    padding: 5px;
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--border);
+    margin-bottom: 16px;
+}
+
+.tab {
+    padding: 9px 4px;
+    font-size: 11px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    background: transparent;
+    color: var(--text2);
+    transition: all 0.2s;
+    text-align: center;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    font-family: 'Georgia', serif;
+}
+
+/* active tab style */
+.tab.active {
+    background: var(--card);
+    color: var(--text);
+    border: 1.5px solid var(--border2);
+}
+
+.tab:hover:not(.active) {
+    background: var(--surface);
+}
+
+
+/* ===== CARD COMPONENT ===== */
+.card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    margin-bottom: 14px;
+    position: relative;
+}
+
+/* subtle gold shimmer line at top of each card */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 18px;
+    right: 18px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* card header with icon + title */
+.card-hd {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.card-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius);
+    background: var(--card2);
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.card-hd h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.card-hd p {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 2px;
+    letter-spacing: 0.2px;
+}
+
+
+/* ===== FORM ELEMENTS ===== */
+
+/* label above inputs */
+.lbl {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text2);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* wrapper for each form field */
+.field {
+    margin-bottom: 14px;
+}
+
+/* textarea styling */
+textarea {
+    width: 100%;
+    min-height: 80px;
+    resize: vertical;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+    line-height: 1.6;
+    transition: border-color 0.2s;
+}
+
+textarea:focus {
+    border-color: var(--accent);
+}
+
+/* select dropdown and text inputs */
+select,
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: 'Georgia', serif;
+}
+
+select:focus,
+input:focus {
+    border-color: var(--accent);
+}
+
+
+/* ===== GRID LAYOUTS ===== */
+
+/* 2 column grid */
+.row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* 3 column grid */
+.row3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+
+/* ===== BUTTONS ===== */
+.btn {
+    padding: 9px 18px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border2);
+    background: var(--card2);
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: 'Georgia', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    background: var(--surface);
+    border-color: var(--accent);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* primary (dark brown) button */
+.btn-primary {
+    background: var(--accent);
+    color: #f7f0e6;
+    border-color: var(--accent2);
+}
+
+.btn-primary:hover {
+    background: var(--accent2);
+    color: #f7f0e6;
+}
+
+/* small button variant */
+.btn-sm {
+    padding: 5px 12px;
+    font-size: 10px;
+}
+
+/* button row container */
+.btn-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+/* ===== OUTPUT BOX ===== */
+.out-box {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--text);
+    word-break: break-all;
+    min-height: 60px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+/* header row above output */
+.out-hd {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+
+/* ===== STATUS MESSAGES ===== */
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 13px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+/* success = green */
+.ok {
+    background: var(--successbg);
+    color: var(--success);
+    border: 1px solid #b0d4a8;
+}
+
+/* error = red */
+.err {
+    background: var(--dangerbg);
+    color: var(--danger);
+    border: 1px solid #e0b0b0;
+}
+
+/* info = blue */
+.info-msg {
+    background: var(--infobg);
+    color: var(--info);
+    border: 1px solid #b0c8e4;
+}
+
+/* little dot icon inside status */
+.sdot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+}
+
+
+/* ===== PASSWORD STRENGTH BAR ===== */
+.str-bar {
+    display: flex;
+    gap: 4px;
+    margin-top: 7px;
+}
+
+.str-seg {
+    height: 4px;
+    flex: 1;
+    border-radius: 2px;
+    background: var(--border);
+    transition: background 0.3s;
+}
+
+
+/* ===== ALGORITHM TIP BOX ===== */
+.algo-tip {
+    font-size: 12px;
+    color: var(--text2);
+    padding: 9px 12px;
+    background: var(--card2);
+    border-radius: var(--radius);
+    border-left: 3px solid var(--gold);
+    margin-top: 10px;
+    font-style: italic;
+}
+
+
+/* ===== BADGE PILLS ===== */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-left: 6px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.b-ok {
+    background: var(--successbg);
+    color: var(--success);
+    border: 1px solid #b0d4a8;
+}
+
+.b-warn {
+    background: var(--warnbg);
+    color: var(--warn);
+    border: 1px solid #d4c078;
+}
+
+.b-info {
+    background: var(--infobg);
+    color: var(--info);
+    border: 1px solid #b0c8e4;
+}
+
+.b-accent {
+    background: #f3e8d8;
+    color: var(--accent2);
+    border: 1px solid var(--border);
+}
+
+
+/* ===== HASH GRID (for hash tab) ===== */
+.hash-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.hash-chip {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px;
+}
+
+.hash-chip .hl {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text2);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+}
+
+.hash-chip .hv {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--text);
+    word-break: break-all;
+    line-height: 1.5;
+}
+
+
+/* ===== IMAGE UPLOAD ZONE ===== */
+.upload-zone {
+    border: 2px dashed var(--border2);
+    border-radius: var(--radius-lg);
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--surface);
+}
+
+.upload-zone:hover {
+    border-color: var(--accent);
+    background: var(--card2);
+}
+
+.upload-zone .uz-icon {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.upload-zone p {
+    font-size: 13px;
+    color: var(--text2);
+    font-style: italic;
+}
+
+
+/* ===== IMAGE CANVAS ===== */
+canvas.enc-canvas {
+    max-width: 100%;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    display: block;
+    margin: 0 auto;
+}
+
+/* side by side image panels */
+.img-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 12px;
+}
+
+.img-panel {
+    text-align: center;
+}
+
+.img-panel .ipl {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text2);
+    margin-bottom: 7px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+
+/* ===== SEPARATOR LINE (used in hash tab) ===== */
+.sep {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text2);
+    margin: 16px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+/* line after sep text */
+.sep::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+
+/* ===== HOW IT WORKS GRID (image tab) ===== */
+.how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.how-item {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    text-align: center;
+}
+
+.how-item .wi {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.how-item .wt {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.how-item .wd {
+    font-size: 11px;
+    color: var(--text3);
+    line-height: 1.5;
+}
+
+
+/* ===== DIVIDER ===== */
+.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 14px 0;
+}

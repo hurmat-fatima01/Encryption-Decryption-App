@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+    MY_ENCRYP/DECRYP_APP
+    Made by: Student
+    Description: A simple encryption and decryption web app
+    Files: index.html, style.css, script.js
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY_ENCRYP/DECRYP_APP</title>
+
+    <!-- linking my css file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="wrap">
+
+        <!-- ===== HERO SECTION ===== -->
+        <div class="hero">
+            <div class="hero-badge">🔐 Secure Cryptography Suite</div>
+            <h1>Encryption &amp; Decryption</h1>
+            <p>Professional-grade cryptographic tools for your data security needs</p>
+
+            <div class="hero-tags">
+                <span class="htag">AES-256</span>
+                <span class="htag">RSA</span>
+                <span class="htag">SHA-512</span>
+                <span class="htag">Base64</span>
+                <span class="htag">Image XOR</span>
+                <span class="htag">Morse</span>
+            </div>
+        </div>
+
+        <!-- ===== TAB BUTTONS ===== -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('sym')">🔑 Symmetric</button>
+            <button class="tab" onclick="showTab('asym')">🗝️ Asymmetric</button>
+            <button class="tab" onclick="showTab('hash')"># Hash</button>
+            <button class="tab" onclick="showTab('enc')">🔤 Encode</button>
+            <button class="tab" onclick="showTab('img')">🖼️ Image</button>
+        </div>
+
+
+        <!-- ===== TAB 1: SYMMETRIC ENCRYPTION ===== -->
+        <div id="p-sym">
+
+            <div class="card">
+                <div class="card-hd">
+                    <div class="card-icon">🔒</div>
+                    <div>
+                        <h3>
+                            Symmetric Encryption
+                            <span class="badge b-info">AES · Caesar · Vigenère · XOR</span>
+                        </h3>
+                        <p>Same key encrypts and decrypts</p>
+                    </div>
+                </div>
+
+                <div class="row2">
+                    <!-- algorithm dropdown -->
+                    <div class="field">
+                        <div class="lbl">Algorithm</div>
+                        <select id="s-algo" onchange="updateAlgoTip()">
+                            <option value="aes">AES-256 (Web Crypto)</option>
+                            <option value="caesar">Caesar Cipher</option>
+                            <option value="vigenere">Vigenère Cipher</option>
+                            <option value="xor">XOR Cipher</option>
+                        </select>
+                    </div>
+
+                    <!-- secret key input -->
+                    <div class="field">
+                        <div class="lbl">Secret Key / Password</div>
+                        <input type="password" id="s-key" placeholder="Enter your secret key..." oninput="updateStrength()">
+                        <!-- strength bar -->
+                        <div class="str-bar">
+                            <div class="str-seg" id="ss1"></div>
+                            <div class="str-seg" id="ss2"></div>
+                            <div class="str-seg" id="ss3"></div>
+                            <div class="str-seg" id="ss4"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- algo tip box -->
+                <div class="algo-tip" id="algo-tip">
+                    AES-256 is the gold standard. Key stretched via PBKDF2 with 100,000 iterations before use.
+                </div>
+
+                <!-- text input -->
+                <div class="field" style="margin-top: 12px;">
+                    <div class="lbl">Plaintext Input</div>
+                    <textarea id="s-in" placeholder="Type or paste your text here..."></textarea>
+                </div>
+
+                <!-- buttons -->
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="symEncrypt()">🔒 Encrypt</button>
+                    <button class="btn" onclick="symDecrypt()">🔓 Decrypt</button>
+                    <button class="btn btn-sm" onclick="symClear()">✕ Clear</button>
+                </div>
+            </div>
+
+            <!-- output box -->
+            <div class="card">
+                <div class="out-hd">
+                    <span class="lbl">Output Result</span>
+                    <button class="btn btn-sm" onclick="copyText('s-out')">📋 Copy</button>
+                </div>
+                <div class="out-box" id="s-out">Result will appear here after encryption or decryption...</div>
+                <div id="s-st"></div>
+            </div>
+
+        </div><!-- end p-sym -->
+
+
+        <!-- ===== TAB 2: ASYMMETRIC (RSA) ===== -->
+        <div id="p-asym" style="display: none;">
+
+            <!-- key generator card -->
+            <div class="card">
+                <div class="card-hd">
+                    <div class="card-icon">🗝️</div>
+                    <div>
+                        <h3>RSA Key Pair Generator</h3>
+                        <p>Public key encrypts · Private key decrypts</p>
+                    </div>
+                </div>
+
+                <div class="row2">
+                    <div class="field">
+                        <div class="lbl">Key Size</div>
+                        <select id="rsa-bits">
+                            <option value="2048">2048-bit (Standard)</option>
+                            <option value="4096">4096-bit (High Security)</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; align-items: flex-end;">
+                        <button class="btn btn-primary" style="width: 100%;" onclick="generateRSA()">
+                            ⚙️ Generate Key Pair
+                        </button>
+                    </div>
+                </div>
+                <div id="rsa-gen-st"></div>
+            </div>
+
+            <!-- public & private key display -->
+            <div class="row2">
+                <div class="card">
+                    <div class="out-hd">
+                        <span class="lbl">Public Key</span>
+                        <button class="btn btn-sm" onclick="copyText('rsa-pub')">📋 Copy</button>
+                    </div>
+                    <div class="out-box" id="rsa-pub" style="font-size: 10px; min-height: 80px;">
+                        Generate keys first...
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="out-hd">
+                        <span class="lbl">Private Key</span>
+                        <button class="btn btn-sm" onclick="copyText('rsa-priv')">📋 Copy</button>
+                    </div>
+                    <div class="out-box" id="rsa-priv" style="font-size: 10px; min-height: 80px;">
+                        Generate keys first...
+                    </div>
+                </div>
+            </div>
+
+            <!-- encrypt/decrypt message -->
+            <div class="card">
+                <div class="card-hd">
+                    <div class="card-icon">✉️</div>
+                    <div>
+                        <h3>Encrypt / Decrypt Message</h3>
+                        <p>Keys auto-fill after generation</p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="lbl">Message</div>
+                    <textarea id="rsa-in" placeholder="Enter the message to encrypt..."></textarea>
+                </div>
+                <div class="field">
+                    <div class="lbl">Public Key (paste or auto-filled)</div>
+                    <textarea id="rsa-pub-in" style="min-height: 55px; font-size: 10px;" placeholder="Paste public key here..."></textarea>
+                </div>
+                <div class="field">
+                    <div class="lbl">Private Key (paste or auto-filled)</div>
+                    <textarea id="rsa-priv-in" style="min-height: 55px; font-size: 10px;" placeholder="Paste private key here..."></textarea>
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="rsaEncrypt()">🔒 Encrypt</button>
+                    <button class="btn" onclick="rsaDecrypt()">🔓 Decrypt</button>
+                </div>
+            </div>
+
+            <div id="rsa-st"></div>
+            <div class="out-hd" style="margin-top: 12px;">
+                <span class="lbl">Output</span>
+                <button class="btn btn-sm" onclick="copyText('rsa-out')">📋 Copy</button>
+            </div>
+            <div class="out-box" id="rsa-out">Result will appear here...</div>
+
+        </div><!-- end p-asym -->
+
+
+        <!-- ===== TAB 3: HASH ===== -->
+        <div id="p-hash" style="display: none;">
+
+            <!-- hash input -->
+            <div class="card">
+                <div class="card-hd">
+                    <div class="card-icon">#</div>
+                    <div>
+                        <h3>Hash Generator</h3>
+                        <p>One-way fingerprint — hashes in real time as you type</p>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="lbl">Input Text</div>
+                    <textarea id="h-in" placeholder="Start typing to see hashes generated live..." oninput="doHash()"></textarea>
+                </div>
+                <div class="btn-row">
+                    <button class="btn btn-sm" onclick="clearHash()">✕ Clear</button>
+                </div>
+            </div>
+
+            <!-- live hash results -->
+            <div class="card">
+                <div class="sep">Live Hash Results</div>
+                <div class="hash-grid">
+                    <div class="hash-chip">
+                        <div class="hl">MD5 <span class="badge b-warn">Legacy</span></div>
+                        <div class="hv" id="hh-md5">—</div>
+                    </div>
+                    <div class="hash-chip">
+                        <div class="hl">SHA-1 <span class="badge b-warn">Legacy</span></div>
+                        <div class="hv" id="hh-sha1">—</div>
+                    </div>
+                    <div class="hash-chip">
+                        <div class="hl">SHA-256 <span class="badge b-ok">Recommended</span></div>
+                        <div class="hv" id="hh-sha256">—</div>
+                    </div>
+                    <div class="hash-chip">
+                        <div class="hl">SHA-512 <span class="badge b-info">Strongest</span></div>
+                        <div class="hv" id="hh-sha512">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- hash verifier -->
+            <div class="card">
+                <div class="card-hd">
+                    <div class="card-icon">✅</div>
+                    <div>
+                        <h3>Hash Integrity Verifier</h3>
+                        <p>Confirm data is untampered</p>
+                    </div>
+                </div>
+
+                <div class="row2">
+                    <div class="field">
+                        <div class="lbl">Text to Verify</div>
+                        <input type="text" id="v-txt" placeholder="Enter original text...">
+                    </div>
+                    <div class="field">
+                        <div class="lbl">Algorithm</div>
+                        <select id="v-algo">
+                            <option value="SHA-1">SHA-1</option>
+                            <option value="SHA-256" selected>SHA-256</option>
+                            <option value="SHA-512">SHA-512</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="lbl">Expected Hash (paste here)</div>
+                    <input type="text" id="v-hash" placeholder="Paste the hash to compare...">
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="verifyHash()">✅ Verify Integrity</button>
+                </div>
+                <div id="v-st"></div>
+            </div>
+
+        </div><!-- end p-hash -->
+
+
+        <!-- ===== TAB 4: ENCODE/DECODE ===== -->
+        <div id="p-enc" style="display: none;">
+
+            <div class="card">
+                <div class="card-hd">
+                    <div class="card-icon">🔤</div>
+                    <div>
+                        <h3>Encode / Decode</h3>
+                        <p>Transform text between multiple formats</p>
+                    </div>
+                </div>
+
+                <div class="row3">
+                    <div class="field" style="grid-column: span 2;">
+                        <div class="lbl">Format</div>
+                        <select id="e-fmt">
+                            <option value="base64">Base64</option>
+                            <option value="hex">Hexadecimal</option>
+                            <option value="binary">Binary</option>
+                            <option value="url">URL Encode</option>
+                            <option value="rot13">ROT-13</option>
+                            <option value="morse">Morse Code</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="lbl">Input Text</div>
+                    <textarea id="e-in" placeholder="Enter text to encode or decode..."></textarea>
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="doEncode()">🔤 Encode</button>
+                    <button class="btn" onclick="doDecode()">🔁 Decode</button>
+                    <button class="btn btn-sm" onclick="clearEncode()">✕ Clear</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="out-hd">
+                    <span class="lbl">Output Result</span>
+                    <button class="btn btn-sm" onclick="copyText('e-out')">📋 Copy</button>
+                </div>
+                <div class="out-box" id="e-out">Result will appear here...</div>
+                <div id="e-st"></div>
+            </div>
+
+        </div><!-- end p-enc -->
+
+
+        <!-- ===== TAB 5: IMAGE ENCRYPTION ===== -->
+        <div id="p-img" style="display: none;">
+
+            <div class="card">
+                <div class="card-hd">
+                    <div class="card-icon">🖼️</div>
+                    <div>
+                        <h3>
+                            Image Encryption
+                            <span class="badge b-accent">XOR Pixel</span>
+                        </h3>
+                        <p>Scramble image pixels using a secret key</p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="lbl">Encryption Key</div>
+                    <input type="password" id="img-key" placeholder="Enter key to scramble image pixels...">
+                </div>
+
+                <div class="field">
+                    <div class="lbl">Upload Image</div>
+                    <div class="upload-zone" onclick="document.getElementById('img-file').click()" id="uz">
+                        <span class="uz-icon">📁</span>
+                        <p>Click to upload an image — PNG, JPG, or GIF supported</p>
+                    </div>
+                    <input type="file" id="img-file" accept="image/*" style="display: none;" onchange="loadImage(this)">
+                </div>
+
+                <!-- shown after image is loaded -->
+                <div id="img-loaded" style="display: none;">
+                    <div class="img-row">
+                        <div class="img-panel">
+                            <div class="ipl">Original</div>
+                            <canvas id="orig-canvas" class="enc-canvas"></canvas>
+                        </div>
+                        <div class="img-panel">
+                            <div class="ipl" id="enc-label">Output</div>
+                            <canvas id="enc-canvas" class="enc-canvas"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="btn-row" style="margin-top: 14px;">
+                        <button class="btn btn-primary" onclick="encryptImage()">🔒 Encrypt Image</button>
+                        <button class="btn" onclick="decryptImage()">🔓 Decrypt Image</button>
+                        <button class="btn btn-sm" onclick="downloadImage()">💾 Download</button>
+                    </div>
+                    <div id="img-st"></div>
+                </div>
+            </div>
+
+            <!-- how it works -->
+            <div class="card">
+                <div class="sep">How Pixel Encryption Works</div>
+                <div class="how-grid">
+                    <div class="how-item">
+                        <div class="wi">📷</div>
+                        <div class="wt">1. Read Pixels</div>
+                        <div class="wd">Each pixel has R, G, B, A values from 0 to 255</div>
+                    </div>
+                    <div class="how-item">
+                        <div class="wi">⚡</div>
+                        <div class="wt">2. XOR with Key</div>
+                        <div class="wd">Each byte is XOR'd against your SHA-256 hashed key</div>
+                    </div>
+                    <div class="how-item">
+                        <div class="wi">🔓</div>
+                        <div class="wt">3. Same Key Decrypts</div>
+                        <div class="wd">XOR is reversible — same key restores the original</div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end p-img -->
+
+    </div><!-- end .wrap -->
+
+    <!-- linking my js file -->
+    <script src="script.js"></script>
+
+</body>
+</html>
