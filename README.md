@@ -49,7 +49,7 @@ Open index.html in any modern browser
 That's it — the app works instantly ✅
 
 bash# Clone the repo
-git clone https://github.com/hurmat-fatima01/MY_ENCRYP_DECRYP_APP.git
+https://github.com/hurmat-fatima01/Encryption-Decryption-App
 
 # Open the app
 cd MY_ENCRYP_DECRYP_APP
